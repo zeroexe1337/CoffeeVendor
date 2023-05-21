@@ -1,0 +1,342 @@
+package machine;
+
+import java.util.Scanner;
+
+public class CoffeeMachine {
+    int waterSupply;
+    int milkSupply;
+    int beansSupply;
+    int money;
+
+    public void setCups(int cups) {
+        this.cups = cups;
+    }
+
+    public int getCups() {
+        return cups;
+    }
+
+    int cups;
+
+    public int getWaterSupply() {
+        return waterSupply;
+    }
+
+    public int getMilkSupply() {
+        return milkSupply;
+    }
+
+    public int getBeansSupply() {
+        return beansSupply;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setWaterSupply(int waterSupply) {
+        this.waterSupply = waterSupply;
+    }
+
+    public void setMilkSupply(int milkSupply) {
+        this.milkSupply = milkSupply;
+    }
+
+    public void setBeansSupply(int beansSupply) {
+        this.beansSupply = beansSupply;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public CoffeeMachine(int waterSupply, int milkSupply, int beansSupply, int money, int cups) {
+        this.waterSupply = waterSupply;
+        this.milkSupply = milkSupply;
+        this.beansSupply = beansSupply;
+        this.money = money;
+        this.cups = cups;
+    }
+
+    public static void main(String[] args) {
+        Scanner scr2 = new Scanner(System.in);
+        CoffeeMachine machine = new CoffeeMachine(400, 540, 120, 550, 9);
+        Coffee espresso = new Espresso();
+        Coffee latte = new Latte();
+        int bankAccount = 0;
+        Coffee cappuccino = new Cappuccino();
+
+
+        while (true) {
+
+            System.out.println();
+            System.out.println("Write action (buy, fill, take, remaining, exit): ");
+            String commandInput = scr2.next();
+
+            switch (commandInput) {
+                case "buy" -> {
+                    System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino: ");
+                    String chooseDrink = scr2.next();
+                    switch (chooseDrink) {
+                        case "1" -> {
+                            if (machine.getWaterSupply() > espresso.water()) {
+                                machine.setWaterSupply(machine.getWaterSupply() - espresso.water());
+                            } else {
+                                System.out.println("Sorry, not enough water!");
+                                break;
+                            }
+                            if (machine.getMilkSupply() > espresso.milk()) {
+                                machine.setMilkSupply(machine.getMilkSupply() - espresso.milk());
+                            } else {
+                                System.out.println("Sorry, not enough milk!");
+                                break;
+                            }
+                            if (machine.getBeansSupply() > espresso.beans()) {
+                                machine.setBeansSupply(machine.getBeansSupply() - espresso.beans());
+                            } else {
+                                System.out.println("Sorry, not enough beans!");
+                                break;
+                            }
+                            if (machine.getCups() > 0) {
+                                machine.setCups(machine.getCups() - 1);
+
+                            } else {
+                                System.out.println("Sorry, not enough cups!");
+                                break;
+                            }
+                            machine.setMoney(machine.getMoney() + espresso.cost());
+                            System.out.println("I have enough resources, making you a coffee!");
+
+                        }
+                        case "2" -> {
+                            if (machine.getWaterSupply() > latte.water()) {
+                                machine.setWaterSupply(machine.getWaterSupply() - latte.water());
+                            } else {
+                                System.out.println("Sorry, not enough water!");
+                                break;
+                            }
+                            if (machine.getMilkSupply() > latte.milk()) {
+                                machine.setMilkSupply(machine.getMilkSupply() - latte.milk());
+                            } else {
+                                System.out.println("Sorry, not enough milk!");
+                                break;
+                            }
+                            if (machine.getBeansSupply() > latte.beans()) {
+                                machine.setBeansSupply(machine.getBeansSupply() - latte.beans());
+                            } else {
+                                System.out.println("Sorry, not enough beans!");
+                                break;
+                            }
+                            if (machine.getCups() > 0) {
+                                machine.setCups(machine.getCups() - 1);
+                            } else {
+                                System.out.println("Sorry, not enough cups!");
+                                break;
+                            }
+                            machine.setMoney(machine.getMoney() + latte.cost());
+                            System.out.println("I have enough resources, making you a coffee!");
+
+                        }
+                        case "3" -> {
+                            if (machine.getWaterSupply() > cappuccino.water()) {
+                                machine.setWaterSupply(machine.getWaterSupply() - cappuccino.water());
+                            } else {
+                                System.out.println("Sorry, not enough water!");
+                                break;
+                            }
+                            if (machine.getMilkSupply() > cappuccino.milk()) {
+                                machine.setMilkSupply(machine.getMilkSupply() - cappuccino.milk());
+                            } else {
+                                System.out.println("Sorry, not enough milk!");
+                                break;
+                            }
+                            if (machine.getBeansSupply() > cappuccino.beans()) {
+                                machine.setBeansSupply(machine.getBeansSupply() - cappuccino.beans());
+                            } else {
+                                System.out.println("Sorry, not enough beans!");
+                                break;
+                            }
+                            if (machine.getCups() > 0) {
+                                machine.setCups(machine.getCups() - 1);
+                            } else {
+                                System.out.println("Sorry, not enough cups!");
+                                break;
+                            }
+                            machine.setMoney(machine.getMoney() + cappuccino.cost());
+                            System.out.println("I have enough resources, making you a coffee!");
+
+                        }
+                    }
+                }
+                case "fill" -> {
+                    System.out.println("Write how many ml of water you want to add:");
+                    int newWater = scr2.nextInt();
+                    machine.setWaterSupply(machine.getWaterSupply() + newWater);
+                    System.out.println("Write how many ml of milk you want to add: ");
+                    int newMilk = scr2.nextInt();
+                    machine.setMilkSupply(machine.getMilkSupply() + newMilk);
+                    System.out.println("Write how many grams of coffee beans you want to add: ");
+                    int newBeans = scr2.nextInt();
+                    machine.setBeansSupply(machine.getBeansSupply() + newBeans);
+                    System.out.println("Write how many disposable cups you want to add:");
+                    int newDisposableCups = scr2.nextInt();
+                    machine.setCups(machine.getCups() + newDisposableCups);
+
+                }
+                case "take" -> {
+                    bankAccount = bankAccount + machine.getMoney();
+                    System.out.println("I gave you $" + machine.getMoney());
+                    System.out.println();
+                    machine.setMoney(0);
+
+                }
+                case "remaining" -> System.out.println("The coffee machine has:\n" +
+                        machine.getWaterSupply() + " ml of water\n" +
+                        machine.getMilkSupply() + " ml of milk\n" +
+                        machine.getBeansSupply() + " g of coffee beans\n" +
+                        machine.getCups() + " disposable cups\n" +
+                        "$" + machine.getMoney() + " of money ");
+                case "exit" -> {
+                    return;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+abstract class Coffee {
+
+    String description;
+    abstract int water();
+    abstract int milk();
+    abstract int beans();
+    abstract int cost();
+
+    String getDescription() {
+        return description;
+    }
+
+}
+package machine;
+public class Cappuccino extends Coffee {
+
+    Cappuccino() {
+        description = "cappuccino";
+    }
+
+    @Override
+    int water() {
+        return 200;
+    }
+
+    @Override
+    int milk() {
+        return 100;
+    }
+
+    @Override
+    int beans() {
+        return 12;
+    }
+
+    @Override
+    int cost() {
+        return 6;
+    }
+}
+
+
+
+package machine;
+
+abstract class Decorator extends Coffee {
+    abstract String getDescription();
+}
+package machine;
+
+public class Espresso extends Coffee {
+
+    Espresso() {
+        description = "Espresso";
+    }
+    @Override
+    int water() {
+        return 250;
+    }
+
+    @Override
+    int milk() {
+        return 0;
+    }
+
+    @Override
+    int beans() {
+        return 16;
+    }
+
+    @Override
+    int cost() {
+        return 4;
+    }
+}
+package machine;
+
+public class Latte extends Coffee {
+
+    Latte() {
+        description = "latte";
+    }
+
+    @Override
+    int water() {
+        return 350;
+    }
+
+    @Override
+    int milk() {
+        return 75;
+    }
+
+    @Override
+    int beans() {
+        return 20;
+    }
+
+    @Override
+    int cost() {
+        return 7;
+    }
+}
+package machine;
+
+public class Espresso extends Coffee {
+
+    Espresso() {
+        description = "Espresso";
+    }
+    @Override
+    int water() {
+        return 250;
+    }
+
+    @Override
+    int milk() {
+        return 0;
+    }
+
+    @Override
+    int beans() {
+        return 16;
+    }
+
+    @Override
+    int cost() {
+        return 4;
+    }
+}
+
+
